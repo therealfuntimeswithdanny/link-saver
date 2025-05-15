@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save Link for Later with Pin Feature</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Save Link for Later</h1>
+    <form id="linkForm">
+      <input type="text" id="linkInput" placeholder="Enter URL to save" required />
+      <button type="submit">Save Link</button>
+    </form>
+    <div class="action-buttons">
+      <button id="deleteAllButton" class="delete-all">Delete All Links</button>
+      <button id="darkModeToggle" class="dark-mode-toggle">Toggle Dark Mode</button>
+    </div>
+    <ul id="linkList"></ul>
+  </div>
+  <script src="script.js" defer></script>
+</body>
+</html>

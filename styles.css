@@ -1,0 +1,138 @@
+/* Base styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Primary save button style */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Style for individual action buttons */
+li button {
+  margin-left: 5px;
+}
+
+li button.pin-button {
+  background-color: #ffa500;
+  color: #fff;
+}
+
+li button.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Delete All Links and Dark Mode Toggle container */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Delete All Links button style */
+.delete-all {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Dark Mode Toggle button style */
+.dark-mode-toggle {
+  background-color: #444;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Link list styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+li.pinned {
+  background-color: #fffebb;
+}
+
+li a {
+  text-decoration: none;
+  color: #007bff;
+  word-break: break-all;
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  background-color: #121212;
+  color: #ddd;
+}
+
+body.dark-mode input[type="text"] {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark-mode li {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode li a {
+  color: #66aaff;
+}
