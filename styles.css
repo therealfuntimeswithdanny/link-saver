@@ -37,28 +37,13 @@ button {
   cursor: pointer;
 }
 
-/* Primary save button style */
+/* Save Link button */
 button[type="submit"] {
   background-color: #007bff;
   color: #fff;
 }
 
-/* Style for individual action buttons */
-li button {
-  margin-left: 5px;
-}
-
-li button.pin-button {
-  background-color: #ffa500;
-  color: #fff;
-}
-
-li button.delete-button {
-  background-color: #dc3545;
-  color: #fff;
-}
-
-/* Delete All Links and Dark Mode Toggle container */
+/* Container for Delete All & Dark Mode Toggle buttons */
 .action-buttons {
   display: flex;
   justify-content: center;
@@ -67,24 +52,16 @@ li button.delete-button {
   margin-bottom: 20px;
 }
 
-/* Delete All Links button style */
+/* Delete All Links button */
 .delete-all {
   background-color: #dc3545;
   color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
-/* Dark Mode Toggle button style */
+/* Dark Mode Toggle button */
 .dark-mode-toggle {
   background-color: #444;
   color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 /* Link list styles */
@@ -117,7 +94,26 @@ li a {
   min-width: 180px;
 }
 
-/* Dark Mode Overrides */
+/* Action buttons within each list item */
+.button-group button {
+  margin-left: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-group .pin-button {
+  background-color: #ffa500;
+  color: #fff;
+}
+
+.button-group .delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Dark mode styles */
 body.dark-mode {
   background-color: #121212;
   color: #ddd;

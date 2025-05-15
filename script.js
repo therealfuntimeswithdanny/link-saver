@@ -1,23 +1,22 @@
 // Retrieve saved links from localStorage or return an empty array if none exist.
 // Each saved link is an object: { id, url, pinned }
 function getLinks() {
-  const stored = localStorage.getItem("savedLinks");
-  return stored ? JSON.parse(stored) : [];
+  const links = localStorage.getItem("savedLinks");
+  return links ? JSON.parse(links) : [];
 }
 
-// Save the links array back to localStorage.
+// Save the links array to localStorage.
 function saveLinks(links) {
   localStorage.setItem("savedLinks", JSON.stringify(links));
 }
 
-// Render links from localStorage to the webpage.
-// Pinned links will appear first.
+// Render the links to the webpage, with pinned links sorted to the top.
 function renderLinks() {
   const linkList = document.getElementById("linkList");
   linkList.innerHTML = "";
   const links = getLinks();
 
-  // Sort links so that pinned links come first.
+  // Sort links so that pinned ones come first.
   const sortedLinks = [...links].sort((a, b) =>
     a.pinned === b.pinned ? 0 : a.pinned ? -1 : 1
   );
@@ -27,14 +26,15 @@ function renderLinks() {
     if (link.pinned) {
       li.classList.add("pinned");
     }
-
+    
+    // Create anchor element for the link.
     const anchor = document.createElement("a");
     anchor.href = link.url;
     anchor.target = "_blank";
     anchor.textContent = link.url;
     li.appendChild(anchor);
-
-    // Create a group for action buttons.
+    
+    // Container for action buttons.
     const btnGroup = document.createElement("div");
     btnGroup.classList.add("button-group");
 
@@ -82,7 +82,7 @@ function formatURL(url) {
   return url;
 }
 
-// Handle form submission to add a new link.
+// Handle submission of a new link.
 document.getElementById("linkForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const linkInput = document.getElementById("linkInput");
@@ -108,53 +108,45 @@ document.getElementById("deleteAllButton").addEventListener("click", () => {
   }
 });
 
-// Auto-add a link from the query string.
-function autoAddLinkFromURL() {
-  if (window.location.search) {
-    let query = decodeURIComponent(window.location.search.substring(1));
-    if (query) {
-      query = formatURL(query);
-      const links = getLinks();
-      if (!links.find(item => item.url === query)) {
-        links.push({ id: Date.now(), url: query, pinned: false });
-        saveLinks(links);
-        renderLinks();
-      }
-      // Remove query string from URL.
-      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-      window.history.replaceState({}, document.title, newUrl);
-    }
-  }
-}
-
-// DARK MODE FUNCTIONALITY
-
-// Get dark mode preference from localStorage.
-function loadDarkModePreference() {
-  return localStorage.getItem("darkMode") === "true";
-}
-
-// Save dark mode preference to localStorage.
-function saveDarkModePreference(isDark) {
+// Toggle dark mode and save the preference.
+document.getElementById("darkModeToggle").addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark);
-}
+});
 
-// Apply dark mode based on the saved preference.
+// Apply saved dark mode preference on load.
 function applyDarkMode() {
-  if (loadDarkModePreference()) {
+  if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark-mode");
   } else {
     document.body.classList.remove("dark-mode");
   }
 }
 
-// Toggle dark mode when the button is clicked.
-document.getElementById("darkModeToggle").addEventListener("click", () => {
-  const isDark = document.body.classList.toggle("dark-mode");
-  saveDarkModePreference(isDark);
-});
+// AUTO-ADD LINK FROM URL QUERY PARAMETERS
+function autoAddLinkFromURL() {
+  // Check if there's a query string in the current URL.
+  if (window.location.search) {
+    // Remove the leading '?' and decode the string.
+    let query = decodeURIComponent(window.location.search.substring(1));
+    if (query) {
+      // Format the URL (add protocol if missing).
+      const formattedLink = formatURL(query);
+      const links = getLinks();
+      // If it isn't already saved, push it.
+      if (!links.find(item => item.url === formattedLink)) {
+        links.push({ id: Date.now(), url: formattedLink, pinned: false });
+        saveLinks(links);
+        renderLinks();
+      }
+      // Remove the query string from the URL so it doesn't re-add on refresh.
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }
+}
 
-// INITIALIZE APP
+// INITIALIZE THE APP
 applyDarkMode();
-renderLinks();
 autoAddLinkFromURL();
+renderLinks();
